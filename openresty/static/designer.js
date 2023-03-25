@@ -223,5 +223,3 @@ if (window.innerWidth < 1280 || window.innerHeight < 720) {
 
     window.decoratorLayer = decoratorLayer;
 })();
-
-localStorage.getItem('flag')
