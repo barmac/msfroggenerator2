@@ -10,6 +10,7 @@ createServer((req, res) => {
         req.url: ${req.url}
     `, new URL(`http://${req.headers.host}${req.url}`).searchParams);
 
+    // VULNERABILITY
     const { url } = Object.fromEntries(new URL(`http://${req.headers.host}${req.url}`).searchParams);
     res.writeHead(200);
     if (!url) return res.end('Invalid request');

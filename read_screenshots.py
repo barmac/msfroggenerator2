@@ -5,6 +5,7 @@ import base64
 from json import dumps as stringify
 
 HOST = 'http://0.0.0.0:8080'
+# HOST = 'http://saturn.picoctf.net:51675'
 
 def get_reports():
     return requests.get(HOST + '/api/reports/get')

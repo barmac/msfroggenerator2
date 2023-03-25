@@ -36,12 +36,13 @@ const visit = async () => {
         type: 'png',
         encoding: 'base64'
     });
+    console.log('BEFORE FETCH');
     await page.evaluate(async screenshot => {
         await fetch('/api/reports/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('flag')}`
+                'Authorization': `Bearer ${localStorage.getItem('flag')}` // read on page
             },
             body: JSON.stringify({ screenshot })
         });
