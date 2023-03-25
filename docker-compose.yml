@@ -1,0 +1,27 @@
+services:
+  api:
+    container_name: api
+    build: ./api
+    init: true
+    volumes:
+      - ./flag.txt:/flag.txt
+  bot:
+    container_name: bot
+    build: ./bot
+    init: true
+    volumes:
+      - ./flag.txt:/flag.txt
+  traefik:
+    image: traefik:2.9
+    container_name: traefik
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/web.yml:/etc/traefik/web.yml:ro
+  openresty:
+    container_name: openresty
+    image: openresty/openresty:1.21.4.1-0-alpine
+    ports:
+      - 8080:8080
+    volumes:
+      - ./openresty/web.conf:/etc/nginx/conf.d/web.conf:ro
+      - ./openresty/static:/var/www:ro

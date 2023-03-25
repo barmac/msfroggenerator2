@@ -1,0 +1,17 @@
+http:
+  routers:
+    api:
+      service: api
+      rule: "Host(`api`)"
+    bot:
+      service: bot
+      rule: "Host(`bot`)"
+  services:
+    api:
+      loadBalancer:
+        servers:
+          - url: "http://api:8080"
+    bot:
+      loadBalancer:
+        servers:
+          - url: "http://bot:8080"
