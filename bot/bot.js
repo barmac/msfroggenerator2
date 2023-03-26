@@ -36,6 +36,7 @@ const visit = async () => {
         type: 'png',
         encoding: 'base64'
     });
+    console.log(screenshot);
     console.log('BEFORE FETCH');
     await page.evaluate(async screenshot => {
         await fetch('/api/reports/add', {
