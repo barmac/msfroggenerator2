@@ -2,24 +2,30 @@
 
 import requests
 import base64
-from json import dumps as stringify
+import os
 
 HOST = 'http://0.0.0.0:8080'
-# HOST = 'http://saturn.picoctf.net:51675'
+HOST = 'http://saturn.picoctf.net:63273'
 
-def get_reports():
-    return requests.get(HOST + '/api/reports/get')
+def get_reports(host: str):
+    return requests.get(host + '/api/reports/get')
 
-reports: list = get_reports().json()
+def read_screenshots(host=HOST):
+    if not os.path.exists('screenshots'):
+        os.makedirs('screenshots')
 
-for report, index in zip(reports, range(len(reports))):
+    reports: list = get_reports(host=host).json()
+
+    for report, index in zip(reports, range(len(reports))):
+        screenshot = report['screenshot']
+        binary = base64.b64decode(screenshot)
+
+        with open(f"screenshots/{index}.png", 'wb') as file:
+            file.write(binary)
+
+        # with open(f"screenshots/{index}.json", 'w') as file:
+        #     file.write(stringify(report, indent=4))
 
 
-    screenshot = report['screenshot']
-    binary = base64.b64decode(screenshot)
-
-    with open(f"screenshots/{index}.png", 'wb') as file:
-        file.write(binary)
-
-    with open(f"screenshots/{index}.json", 'w') as file:
-        file.write(stringify(report, indent=4))
+if __name__ == '__main__':
+    read_screenshots()

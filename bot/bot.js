@@ -37,7 +37,9 @@ const visit = async () => {
         encoding: 'base64'
     });
     console.log(screenshot);
+
     console.log('BEFORE FETCH');
+    // race condition: time between screenshot and fetch
     await page.evaluate(async screenshot => {
         await fetch('/api/reports/add', {
             method: 'POST',
