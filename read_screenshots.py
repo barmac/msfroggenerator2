@@ -4,8 +4,7 @@ import requests
 import base64
 import os
 
-HOST = 'http://0.0.0.0:8080'
-HOST = 'http://saturn.picoctf.net:63273'
+HOST = os.environ.get('HOST', 'http://0.0.0.0:8080')
 
 def get_reports(host: str):
     return requests.get(host + '/api/reports/get')
